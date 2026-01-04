@@ -5,3 +5,48 @@
 .card-body {
     padding: 1.25rem;
 }
+
+.hero-animate {
+    opacity: 0;
+    font-size: 1.9rem;
+    transform: translateY(20px);
+    animation: fadeUp 1.2s ease-out forwards;
+    text-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+@keyframes fadeUp {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+}
+
+.logo-main {
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.logo-tagline {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #4a5568;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}

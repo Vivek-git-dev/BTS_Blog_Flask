@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Admin Dashboard</h1>
+    <a class="btn btn-primary" href="{{ url_for('blog.create_post') }}">Create Post</a>
+  </div>
+
+  <div class="card mb-4">
+    <div class="card-body">
+      <form method="GET" action="{{ url_for('main.dashboard') }}" class="row g-2">
+        <div class="col-md-8">
+          <input class="form-control" type="search" name="q" placeholder="Search by title or slug" value="{{ request.args.get('q','') }}">
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex">
+            <button class="btn btn-outline-secondary me-2" type="submit">Search</button>
+            <a class="btn btn-light" href="{{ url_for('main.dashboard') }}">Clear</a>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  {% if posts is defined and posts %}
+    <div class="list-group">
+      {% for post in posts %}
+        <div class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <strong>{{ post.title }}</strong>
+            <div class="text-muted small">Slug: {{ post.slug }} — By {{ post.author.name }}</div>
+          </div>
+          <div>
+            <a class="btn btn-sm btn-secondary me-2" href="{{ url_for('blog.edit_post', post_id=post.id) }}">Edit</a>
+            <form method="POST" action="{{ url_for('blog.delete_post', post_id=post.id) }}" style="display:inline;" onsubmit="return confirm('Delete this post?');">
+              <button class="btn btn-sm btn-danger">Delete</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% elif request.args.get('q') %}
+    <p class="text-muted">No posts found for "{{ request.args.get('q') }}".</p>
+  {% else %}
+    <p class="text-muted">Use the search box to find posts to edit or delete.</p>
+  {% endif %}
+
+</div>
+{% endblock %}

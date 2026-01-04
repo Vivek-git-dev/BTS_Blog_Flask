@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+{% block title %}Create Post | BTS{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+
+    <h1 class="fw-bold mb-4">{{ title }}</h1>
+
+       <form method="POST"
+      action="{{ action_url }}"
+      novalidate
+      onsubmit="syncEditor()">
+
+        {{ form.hidden_tag() }}
+
+        <div class="mb-3">
+            {{ form.title.label(class="form-label fw-bold") }}
+            {{ form.title(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.slug.label(class="form-label fw-bold") }}
+            {{ form.slug(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.summary.label(class="form-label fw-bold") }}
+            {{ form.summary(class="form-control", rows="3") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.image_url.label(class="form-label fw-bold") }}
+            {{ form.image_url(class="form-control") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.categories.label(class="form-label fw-bold") }}
+            {{ form.categories(class="form-select", multiple=True) }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.read_time.label(class="form-label fw-bold") }}
+            {{ form.read_time(class="form-control", type="number") }}
+        </div>
+
+        <div class="form-check mb-3">
+            {{ form.is_published(class="form-check-input") }}
+            {{ form.is_published.label(class="form-check-label fw-bold") }}
+        </div>
+
+        <div class="mb-3">
+            {{ form.content.label(class="form-label fw-bold") }}
+            {{ form.content(id="editor", class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">{{ btn_label }}</button>
+    </form>
+</div>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+<script>
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .then(editor => {
+            editorInstance = editor;
+        });
+
+    function syncEditor() {
+        document.getElementById("editor").value = editorInstance.getData();
+    }
+</script>
+{% endblock %}

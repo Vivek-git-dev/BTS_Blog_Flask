@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}About Me | BTS{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="display-4 fw-bold mb-4 text-center hero-animate">About Me</h1>
+
+            <div class="p-5 bg-body-tertiary rounded-3 shadow-sm">
+                <p class="lead mb-4">This is what I do.</p>
+
+                <p>I am a Legacy Application Developer with more than 11 years of professional experience building and
+                    enhancing enterprise systems. I enjoy solving complex problems through clean code and thoughtful
+                    design.</p>
+
+                <p>My curiosity keeps me learning, which recently inspired me to dive into Python. I use it to
+                    experiment with automation ideas, personal tools and projects that push me beyond my Mainframe
+                    background. BreakTime Stories is one of those projects. I designed and built this blog myself using
+                    Python, Flask and Jinja, turning our break-time conversations about current affairs, cinema,
+                    sports and everything in between into a space where those stories can live and grow.</p>
+
+                <p>Outside of work, I like to keep life active and interesting. You will often find me playing cricket,
+                    badminton, volleyball or heading out for a cycling session on weekends. I am a firm believer in
+                    balancing tech with time outdoors.</p>
+
+                <p>I enjoy reading nonfiction, especially biographies and books that teach me something new about the
+                    real world. I also love watching documentaries, feel good movies, action films and sci-fi stories
+                    that spark imagination and inspiration.</p>
+
+                <p class="mb-0">I approach everything with a mindset of continuous improvement. Learning new skills,
+                    staying physically active and exploring creative hobbies all help me become a better version of
+                    myself, one step at a time!</p>
+            </div>
+
+            <div class="text-center mt-5">
+                <a href="{{ url_for('main.home') }}" class="btn btn-outline-primary rounded-pill px-4">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

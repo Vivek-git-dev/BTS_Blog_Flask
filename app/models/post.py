@@ -22,6 +22,7 @@ class Post(db.Model):
 
     is_published = db.Column(db.Boolean, default=False)
     read_time = db.Column(db.Integer, default=1)   # minutes
+    views = db.Column(db.Integer, default=0)
 
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(
@@ -29,9 +30,9 @@ class Post(db.Model):
     )
 
     # Relationships
-    comments = relationship("Comment", backref="post", lazy=True)
+    comments = db.relationship("Comment", back_populates="post", lazy=True)
 
-    categories = relationship(
+    categories = db.relationship(
         "Category",
         secondary="post_categories",     # table name created later
         backref="posts",

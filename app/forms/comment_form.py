@@ -5,8 +5,8 @@ from wtforms.validators import DataRequired, Length
 
 class CommentForm(FlaskForm):
     content = TextAreaField(
-        "Add a comment",
-        validators=[DataRequired(), Length(min=2, max=1000)]
+        "Write your comment",
+        validators=[DataRequired(), Length(min=2, max=1000)],
+        render_kw={"required": False}
     )
-
     submit = SubmitField("Post Comment")

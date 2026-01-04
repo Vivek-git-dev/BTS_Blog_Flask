@@ -21,6 +21,12 @@ def create_app():
     login_manager.init_app(app)
     ckeditor.init_app(app)
 
+    # Context processors
+    @app.context_processor
+    def inject_now():
+        from datetime import datetime
+        return {'current_year': datetime.utcnow().year}
+
     # Register blueprints
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp, url_prefix="/auth")

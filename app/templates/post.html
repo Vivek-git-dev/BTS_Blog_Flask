@@ -2,46 +2,112 @@
 {% block title %}Post | BTS{% endblock %}
 
 {% block content %}
+<style>
+    .post-hero {
+        height: 350px;
+        background-image: url("{{ post.image_url }}");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        border-radius: 15px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .post-hero::before {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.45);
+        z-index: 1;
+    }
+
+    .post-hero-content {
+        position: relative;
+        z-index: 2;
+        background: rgba(255, 255, 255, 0.2);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        border-radius: 12px;
+        padding: 25px;
+        max-width: 600px;
+    }
+
+    .post-hero-content h1,
+    .post-hero-content p,
+    .post-hero-content a {
+        color: #fff;
+    }
+</style>
+
 <div class="container py-5">
-    <!-- Page Heading -->
+
+    <!-- PAGE HERO -->
     <section class="mb-5">
-        <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
-          <div class="col-lg-6 px-0">
-            <h1 class="display-4 fst-italic">Post Name</h1>
-            <p class="lead my-3">Post Subtitle</p>
-            <p class="blog-post-meta">January 1, 2021 by <a href="#">Mark</a></p>
-          </div>
+        <div class="post-hero d-flex align-items-end mb-4">
+            <div class="post-hero-content">
+                <h1 class="blog-post">{{ post.title }}</h1>
+                <p class="lead my-3">{{ post.summary }}</p>
+                <p class="blog-post-meta">
+                    {{ post.created_at.strftime("%b %d, %Y") }} •
+                    <a href="#" class="text-white fw-bold text-decoration-none">{{ post.author.name }}</a>
+                </p>
+            </div>
         </div>
     </section>
-    <section>
-    <!-- Article Body -->
-    <div> <h3 class="pb-4 mb-4 fst-italic border-bottom">
-</h3> <article class="blog-post"> <h1>Another blog post</h1>
-         <p>This blog post shows a few different types of content that’s supported and styled with Bootstrap. Basic typography, lists, tables, images, code, and more are all supported as expected.</p> <hr> <p>This is some additional paragraph placeholder content. It has been written to fill the available space and show how a longer snippet of text affects the surrounding content. We'll repeat it often to keep the demonstration flowing, so be on the lookout for this exact same string of text.</p>
-    </article>
-        <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
-    </div>
+
+    <!-- ARTICLE BODY -->
+    <section class="mb-5">
+        {{ post.content | safe }}
     </section>
 
-    <!-- Comment List -->
+    <!-- COMMENT FORM -->
+    <form method="POST"
+      action="{{ url_for('blog.post_detail', slug=post.slug) }}"
+      onsubmit="document.getElementById('comment-editor').value = editorInstance.getData();">
+
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+        {{ form.content.label(class="form-label fw-bold") }}
+        {{ form.content(id="comment-editor", class="form-control") }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Post Comment</button>
+</form>
+
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/classic/ckeditor.js"></script>
+
+<script>
+    let editorInstance;
+
+    ClassicEditor
+        .create(document.querySelector('#comment-editor'), {
+            toolbar: ['bold', 'italic', 'underline', 'link', 'bulletedList', 'numberedList'],
+            placeholder: 'Write your comment here...'
+        })
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => console.error(error));
+</script>
+
+    <!-- COMMENTS LIST -->
     {% for comment in post.comments | sort(attribute='created_at', reverse=True) %}
         <div class="card mb-3 shadow-sm">
             <div class="card-body">
-
-                <!-- Comment Author -->
                 <h6 class="fw-bold mb-1">
                     {{ comment.user.name if comment.user else comment.author_name }}
                 </h6>
-
-                <!-- Comment Timestamp -->
                 <small class="text-muted">
                     {{ comment.created_at.strftime('%b %d, %Y • %I:%M %p') }}
                 </small>
-
-                <p class="mt-3 mb-0">{{ comment.content }}</p>
+                <p class="mt-3 mb-0">{{ comment.content | safe }}</p>
             </div>
         </div>
     {% else %}
         <p class="text-muted">No comments yet. Be the first to comment!</p>
     {% endfor %}
+
+</div>
 {% endblock %}
