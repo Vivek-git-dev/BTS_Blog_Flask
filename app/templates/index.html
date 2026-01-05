@@ -12,6 +12,7 @@
 
   <!-- Hero Section -->
   <section class="mb-5">
+    {% if posts %}
     <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
 
       <div class="row align-items-center">
@@ -37,6 +38,11 @@
       </div>
 
     </div>
+    {% else %}
+    <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-body-secondary">
+      <p class="lead">No blog posts yet. Check back soon!</p>
+    </div>
+    {% endif %}
   </section>
 
   <!-- Blogs Section-->
