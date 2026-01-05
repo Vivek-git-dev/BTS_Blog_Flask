@@ -12,7 +12,7 @@ primary_region = "iad" # CST
   DATABASE_URL = "postgresql://user:password@postgres.internal:5432/bts_blog"
 
 [deploy]
-  release_command = "flask db upgrade && python seed_categories.py"
+  release_command = "/bin/sh -c 'flask db upgrade && python seed_categories.py'"
 
 [http_service]
   internal_port = 8080
