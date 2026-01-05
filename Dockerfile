@@ -11,4 +11,5 @@ ENV FLASK_APP=run.py
 
 EXPOSE 8080
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "run:app"]
+# Run database migrations before starting the app
+CMD ["sh", "-c", "flask db upgrade && gunicorn --bind 0.0.0.0:8080 run:app"]

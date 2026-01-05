@@ -3,10 +3,13 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "bts-blog" # CHANGE THIS TO YOUR APP NAME
+app = "bts-blog-flask" # CHANGE THIS TO YOUR APP NAME
 primary_region = "iad" # CST
 
 [build]
+
+[env]
+  DATABASE_URL = "postgresql://user:password@postgres.internal:5432/bts_blog"
 
 [deploy]
   release_command = "flask db upgrade"
@@ -21,3 +24,7 @@ primary_region = "iad" # CST
 
 [[vm]]
   size = "shared-cpu-1x"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 5432
