@@ -22,15 +22,33 @@
     {% block navbar %}
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
         <div class="container">
-            <a href="{{ url_for('main.home') }}" class="text-decoration-none">
+            <!-- Logo with Tagline -->
+            <a href="{{ url_for('main.home') }}" class="navbar-brand text-decoration-none d-flex align-items-center gap-3">
                 <img src="{{ url_for('static', filename='images/BTS Logo Final.png') }}" alt="BTS Logo" height="80">
+                <div class="d-none d-md-block">
+                    <p class="mb-0 fw-bold text-dark" style="font-size: 1 rem; line-height: 1.3;">
+                        Take a Break! Sip a Story! Feel the Vibe!
+                    </p>
+                </div>
             </a>
+
+            <!-- Navbar Toggle Button -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- Navigation Menu -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <!-- Rotating Quote -->
+                    <li class="nav-item me-4 d-none d-lg-block">
+                        <div id="quoteContainer" class="quote-display">
+                            <em class="text-muted">
+                                <span id="quoteText">Loading...</span>
+                            </em>
+                        </div>
+                    </li>
+
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('main.about') }}">About</a>
                     </li>
@@ -51,11 +69,34 @@
                         <a class="nav-link" href="{{ url_for('auth.register') }}">Sign Up</a>
                     </li>
                     {% endif %}
-
                 </ul>
             </div>
         </div>
     </nav>
+
+    <script>
+        // Rotating quotes functionality
+        let quotes = [];
+        let currentQuoteIndex = 0;
+
+        // Load quotes from JSON
+        fetch('{{ url_for("static", filename="quotes.json") }}')
+            .then(response => response.json())
+            .then(data => {
+                quotes = data.quotes;
+                displayQuote();
+                // Rotate quote every 5 seconds
+                setInterval(displayQuote, 5000);
+            });
+
+        function displayQuote() {
+            if (quotes.length > 0) {
+                const quoteElement = document.getElementById('quoteText');
+                quoteElement.textContent = '"' + quotes[currentQuoteIndex] + '"';
+                currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+            }
+        }
+    </script>
     {% endblock %}
 
     <!-- Flash messages -->

@@ -6,6 +6,44 @@
     padding: 1.25rem;
 }
 
+/* Rotating Quotes Styling */
+.quote-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#quoteText {
+    animation: fadeInOut 5s ease-in-out infinite;
+    font-size: 0.95rem;
+    color: #6c757d;
+    font-weight: 500;
+    line-height: 1.4;
+    font-style: italic;
+    max-width: 300px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .hero-animate {
     opacity: 0;
     font-size: 1.9rem;
