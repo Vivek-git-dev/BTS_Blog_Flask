@@ -89,5 +89,13 @@ def dashboard():
             .order_by(Post.created_at.desc())
             .all()
         )
+    else:
+        # Show 10 most recently created posts by default
+        posts = (
+            Post.query
+            .order_by(Post.created_at.desc())
+            .limit(10)
+            .all()
+        )
 
-    return render_template('dashboard.html', posts=posts)
+    return render_template('dashboard.html', posts=posts, search_query=q)

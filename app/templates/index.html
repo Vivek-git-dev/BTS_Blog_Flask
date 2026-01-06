@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}Home | BTS{% endblock %}
+{% block title %}Home | Story Stack{% endblock %}
 
 {% block content %}
 
@@ -27,7 +27,7 @@
 
         <!-- RIGHT: Thumbnail Image -->
         <div class="col-lg-6 text-center">
-          <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f" class="img-fluid rounded shadow-sm"
+          <img src="{{ posts[0].image_url }}" class="img-fluid rounded shadow-sm"
             alt="Featured Image">
         </div>
       </div>
@@ -50,7 +50,7 @@
           <div class="col-md-6">
             <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
               <div class="col p-4 d-flex flex-column position-static"> <strong
-                  class="d-inline-block mb-2 text-primary-emphasis">Popular</strong>
+                  class="d-inline-block mb-2 text-primary-emphasis">{% if post.categories.first() %}{{ post.categories.first().name }}{% else %}Popular{% endif %}</strong>
                 <h3 class="mb-0">
                   {{ post.title}}</h3>
                 <div class="mb-1 text-body-secondary">{{ post.created_at.strftime("%b %d, %Y") }} &bull; {{ post.views

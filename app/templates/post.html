@@ -51,6 +51,7 @@
                 <p class="blog-post-meta">
                     {{ post.created_at.strftime("%b %d, %Y") }} •
                     <a href="#" class="text-white fw-bold text-decoration-none">{{ post.author.name }}</a>
+                    {% if post.categories.first() %} • <span class="text-white">{{ post.categories.first().name }}</span>{% endif %}
                 </p>
             </div>
         </div>

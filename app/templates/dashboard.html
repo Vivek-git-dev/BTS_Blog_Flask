@@ -42,8 +42,8 @@
         </div>
       {% endfor %}
     </div>
-  {% elif request.args.get('q') %}
-    <p class="text-muted">No posts found for "{{ request.args.get('q') }}".</p>
+  {% elif search_query %}
+    <p class="text-muted">No posts found for "{{ search_query }}".</p>
   {% else %}
     <p class="text-muted">Use the search box to find posts to edit or delete.</p>
   {% endif %}

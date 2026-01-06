@@ -11,22 +11,38 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 5px 0;
+    padding: 10px 16px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.quote-display:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    box-shadow: 0 6px 16px rgba(102, 126, 234, 0.15);
 }
 
 #quoteText {
     animation: fadeInOut 5s ease-in-out infinite;
     font-size: 0.95rem;
-    color: #6c757d;
-    font-weight: 500;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
     line-height: 1.4;
     font-style: italic;
     max-width: 300px;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: filter 0.3s ease;
+}
+
+.quote-display:hover #quoteText {
+    filter: brightness(1.1);
 }
 
 @keyframes fadeInOut {
@@ -69,22 +85,44 @@
     flex-direction: column;
     justify-content: center;
     line-height: 1;
+    padding: 8px 12px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logo-container:hover {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
 }
 
 .logo-main {
     font-size: 1.8rem;
-    font-weight: 800;
-    letter-spacing: -1px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    font-weight: 900;
+    letter-spacing: -0.5px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    transition: all 0.3s ease;
+    word-spacing: 4px;
+}
+
+.logo-container:hover .logo-main {
+    filter: brightness(1.1);
 }
 
 .logo-tagline {
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: #4a5568;
-    letter-spacing: 1px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #667eea;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    margin-top: 2px;
+    transition: color 0.3s ease;
+}
+
+.logo-container:hover .logo-tagline {
+    color: #764ba2;
 }
